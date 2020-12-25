@@ -63,3 +63,35 @@ In the working directory, we create an executable program using `go install`. Th
 go install github.com/jmh-git/first-go-module
 ``` 
 creates `first-go-module.exe` in the `bin` subdirectory underneath `GOPATH`.
+
+## Creating a package in the module
+
+A module can contain one or more packages. Packages are located in a sub-directory underneath the module's directory. To create a package called `hello`, perform these steps:
+```
+> mkdir hello
+> cd hello
+```
+Create a Go file that declares the package in the first line. For instance like this:
+```
+package hello
+
+import "fmt"
+
+func Hello() {
+	fmt.Println("hello/hello.go :: Hello()")
+}
+```
+Because of the uppercase name, the function `Hello()` is visible outside the package. In the next step, we import the package in our `main.go` program and use `Hello()` from there.
+
+## Importing a package 
+
+To use a package, it needs to be imported first. The package `hello` is part of the module `first-go-module` which in turn is located in a Github repository following this module path: `github.com/jmh-git/first-go-module`.
+
+Hence the following `import` statement must be added to `main.go`:
+```
+import "github.com/jmh-git/first-go-module/hello"
+```
+Now, the package and its exported variables, constants, types and functions can be used, for instance like so:
+```
+hello.Hello()
+```
